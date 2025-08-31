@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Jungkook 🐰💙</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      height: 100vh;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: 'Montserrat', sans-serif;
+      color: #fff;
+      position: relative;
+    }
+
+    /* Background gradient */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #000 0%, #0d1b2a 50%, #1e3a8a 100%);
+      animation: bgMove 10s infinite alternate;
+      z-index: -3;
+    }
+    @keyframes bgMove {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(60deg); }
+    }
+
+    /* Faded BG Image */
+    body::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("images/jk2.jpg") no-repeat center/cover;
+      opacity: 0.15;
+      z-index: -2;
+    }
+
+    /* Particles */
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+
+    /* JK Image */
+    .jk-img {
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      border: 4px solid #38bdf8;
+      box-shadow: 0 0 40px #2563eb, 0 0 70px #60a5fa;
+      margin-bottom: 30px;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.2);
+      animation: glow 3s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 20px #2563eb; }
+      to { box-shadow: 0 0 60px #60a5fa; }
+    }
+
+    /* Heading */
+    h1 {
+      font-size: 3rem;
+      text-align: center;
+      background: linear-gradient(90deg, #38bdf8, #60a5fa, #93c5fd, #1e3a8a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      letter-spacing: 2px;
+      animation: shine 4s infinite linear;
+      z-index: 2;
+    }
+    h1::before, h1::after {
+      content: "Happy Birthday Jungkook";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.7;
+    }
+    h1::before { color: #3b82f6; animation: glitch 2s infinite; }
+    h1::after { color: #93c5fd; animation: glitch 3s infinite; }
+    @keyframes glitch {
+      0% { transform: translate(-50%, 0); }
+      20% { transform: translate(-48%, -2px); }
+      40% { transform: translate(-52%, 2px); }
+      60% { transform: translate(-49%, 1px); }
+      100% { transform: translate(-50%, 0); }
+    }
+    @keyframes shine {
+      0% { background-position: 0%; }
+      100% { background-position: 200%; }
+    }
+
+    /* Peaceful subtitle */
+    p {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #e0f2fe;
+      opacity: 0;
+      animation: fadeIn 3s ease forwards 2s;
+      z-index: 2;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Music button */
+    #music-btn {
+      margin-top: 25px;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 30px;
+      background: #1e3a8a;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 0 15px #3b82f6;
+      transition: 0.3s;
+      z-index: 2;
+    }
+    #music-btn:hover {
+      background: #2563eb;
+      box-shadow: 0 0 25px #60a5fa;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg"></canvas>
+
+  <!-- JK Image -->
+  <img src="images/jk2.jpeg" alt="JK" class="jk-img">
+
+  <!-- Title -->
+  <h1>Happy Birthday Jungkook 🐰💙</h1>
+
+  <!-- Unique peaceful subtitle -->
+  <p>“Your voice heals, your smile comforts, and your presence feels like home 💙”</p>
+
+  <!-- Music -->
+  <audio id="music" loop autoplay>
+    <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mp3">
+  </audio>
+  <button id="music-btn">🔊 Toggle Music</button>
+
+  <script>
+    // Music toggle
+    const music = document.getElementById("music");
+    const btn = document.getElementById("music-btn");
+    btn.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        btn.innerText = "🔊 Music On";
+      } else {
+        music.pause();
+        btn.innerText = "🔇 Music Off";
+      }
+    });
+
+    // Particles
+    const canvas = document.getElementById("bg");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let stars = [];
+    for (let i = 0; i < 150; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2,
+        dx: (Math.random() - 0.5) * 0.3,
+        dy: (Math.random() - 0.5) * 0.3
+      });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#60a5fa";
+      stars.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+        s.x += s.dx;
+        s.y += s.dy;
+        if (s.x < 0 || s.x > canvas.width) s.dx *= -1;
+        if (s.y < 0 || s.y > canvas.height) s.dy *= -1;
+      });
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+  </script>
+</body>
+</html>
